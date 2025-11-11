@@ -193,7 +193,8 @@ class SelectInputWrapper:
         widget = AutoCombobox(self.frame, textvariable=self.variable)
         widget["values"] = [k for k, *_ in options]
         widget.pack()
-        widget.bind("<Return>", lambda _: "break")  # override default enter that submits the form
+        
+        #widget.bind("<Return>", lambda _: "break")  # override default enter that submits the form
 
         self.set_default_label()
         self.taking_focus = widget
