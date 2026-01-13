@@ -195,7 +195,8 @@ class SelectInputWrapper:
         widget.pack()
         
         #widget.bind("<Return>", lambda _: "break")  # override default enter that submits the form
-
+        widget.bind("<Return>", lambda _: self._enter_handler())
+        
         self.set_default_label()
         self.taking_focus = widget
         return widget
@@ -213,3 +214,13 @@ class SelectInputWrapper:
             # We never want to select the radiobutton in the initial phase
             # as this might trigger on_change action (not caused by the user)
             var.set(val)
+
+    def _enter_handler(self, event=None):
+        current_value = self.variable.get()
+        
+        if not current_value:
+            return "break"  # Let it perform the default behavior and open the dropdown
+
+        # If it has a value, submit it
+        self.adaptor._ok()
+        return "break"
